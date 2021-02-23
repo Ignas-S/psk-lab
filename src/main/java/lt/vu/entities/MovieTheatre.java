@@ -1,0 +1,55 @@
+package lt.vu.entities;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.Objects;
+import java.util.Set;
+
+@Entity
+@Table(name = "movie_theatre", schema = "public", catalog = "nvinefdm")
+@Getter @Setter
+public class MovieTheatre {
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
+    private String id;
+
+    @Basic
+    @Column(name = "address")
+    private String address;
+
+    @Basic
+    @Column(name = "name")
+    private String name;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "theatre_movies",
+            joinColumns = @JoinColumn(name = "theatre_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_eidr"))
+    private Set<Movie> movies;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MovieTheatre that = (MovieTheatre) o;
+
+        if (!Objects.equals(id, that.id)) return false;
+        if (!Objects.equals(address, that.address)) return false;
+        if (!Objects.equals(name, that.name)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
+    }
+}

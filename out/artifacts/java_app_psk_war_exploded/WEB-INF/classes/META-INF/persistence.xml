@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="PlayersPU" transaction-type="JTA">
+        <jta-data-source>PlayersDataSource</jta-data-source>
+        <properties>
+            <!--<property name="hibernate.hbm2ddl.auto" value="create"/>-->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+        </properties>
+    </persistence-unit>
+    <persistence-unit name="MoviesPU">
+        <jta-data-source>MoviesDataSource</jta-data-source>
+        <class>lt.vu.entities.Auditorium</class>
+        <class>lt.vu.entities.Movie</class>
+        <class>lt.vu.entities.MovieTheatre</class>
+        <class>lt.vu.entities.TheatreMovies</class>
+        <properties>
+            <property name="toplink.jdbc.url" value="jdbc:postgresql://hattie.db.elephantsql.com:5432/nvinefdm"/>
+            <property name="toplink.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="hibernate.connection.url"
+                      value="jdbc:postgresql://hattie.db.elephantsql.com:5432/nvinefdm"/>
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+            <property name="openjpa.ConnectionURL" value="jdbc:postgresql://hattie.db.elephantsql.com:5432/nvinefdm"/>
+            <property name="openjpa.ConnectionDriverName" value="org.postgresql.Driver"/>
+            <property name="eclipselink.jdbc.url" value="jdbc:postgresql://hattie.db.elephantsql.com:5432/nvinefdm"/>
+            <property name="eclipselink.jdbc.driver" value="org.postgresql.Driver"/>
+        </properties>
+    </persistence-unit>
+</persistence>
