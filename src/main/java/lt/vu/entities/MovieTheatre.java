@@ -9,6 +9,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "movie_theatre", schema = "public", catalog = "nvinefdm")
+@NamedQueries({
+        @NamedQuery(name = "MovieTheatre.allTheatres", query = "select t from MovieTheatre as t")
+})
 @Getter @Setter
 public class MovieTheatre {
     @Id
@@ -30,6 +33,10 @@ public class MovieTheatre {
             joinColumns = @JoinColumn(name = "theatre_id"),
             inverseJoinColumns = @JoinColumn(name = "movie_eidr"))
     private Set<Movie> movies;
+
+    public void addMovie(Movie movie) {
+        this.movies.add(movie);
+    }
 
     @Override
     public boolean equals(Object o) {

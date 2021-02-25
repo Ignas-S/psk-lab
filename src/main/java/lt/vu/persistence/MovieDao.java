@@ -6,6 +6,8 @@ import lt.vu.entities.MovieTheatre;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 
@@ -19,13 +21,6 @@ public class MovieDao {
         em.persist(movie);
     }
 
-    public void addTheatreToMovie(String movieEidr, String theatreId) {
-        Movie movie = getByEidr(movieEidr);
-        MovieTheatre theatre = em.find(MovieTheatre.class, theatreId);
-        movie.addTheatre(theatre);
-        em.persist(movie);
-    }
-
     public Movie getByEidr(String eidr){
         return em.find(Movie.class, eidr);
     }
@@ -36,6 +31,12 @@ public class MovieDao {
 
     public List<Movie> loadAll() {
         return em.createNamedQuery("Movie.allMovies", Movie.class).getResultList();
+    }
+
+    public List<Movie> getOtherMovies(List<String> exclude) {
+        Query qr = em.createNamedQuery("Movie.otherMovies", Movie.class);
+        qr.setParameter("exclude", exclude);
+        return qr.getResultList();
     }
 
 

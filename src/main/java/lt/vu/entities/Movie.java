@@ -10,7 +10,8 @@ import java.util.Set;
 @Entity
 @Getter @Setter
 @NamedQueries({
-        @NamedQuery(name = "Movie.allMovies", query = "select m from Movie as m")
+        @NamedQuery(name = "Movie.allMovies", query = "select m from Movie as m"),
+        @NamedQuery(name = "Movie.otherMovies", query = "select m from Movie as m where m.eidr not in :exclude")
 })
 @Table(name = "movie", schema = "public", catalog = "nvinefdm")
 public class Movie {
@@ -47,11 +48,6 @@ public class Movie {
             fetch = FetchType.EAGER, cascade = CascadeType.PERSIST
     )
     private Set<MovieTheatre> movieTheatres;
-
-    public void addTheatre(MovieTheatre theatre) {
-        this.movieTheatres.add(theatre);
-    }
-
 
     @Override
     public boolean equals(Object o) {

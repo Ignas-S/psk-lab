@@ -6,33 +6,16 @@
 >
 <h:head/>
 <h:body>
-    <h2>Movies:</h2>
+    <header>
+        <h:link value="Movies" outcome="movies"/>
+    </header>
+    <h2>Movie Theatres:</h2>
     <ol>
-        <ui:repeat value="#{movies.allMovies}" var="movie">
-            <li>#{movie.name}, theatre count: #{movie.movieTheatres.size()}</li>
+        <ui:repeat value="#{index.allTheatres}" var="t">
+            <li>
+                <h:link value="#{t.name}, address: #{t.address}, available movies: #{t.movies.size()}" outcome="theatre?tId=#{t.id}" />
+            </li>
         </ui:repeat>
     </ol>
-    <h:form>
-        <label for="title">Title</label> <br/>
-        <h:inputText id="title" value="#{movies.movieToCreate.name}" required="true" /> <br/>
-        <label for="director">Director</label> <br/>
-        <h:inputText id="director" value="#{movies.movieToCreate.director}" required="true" /> <br/>
-        <label for="duration">Duration (min)</label> <br/>
-        <h:inputText id="duration" value="#{movies.movieToCreate.duration}" required="true" /> <br/>
-        <label for="genres">Genre(s)</label> <br/>
-        <h:inputText id="genres" value="#{movies.movieToCreate.genres}" required="true" /> <br/>
-        <label for="year">Year (YYYY)</label> <br/>
-        <h:inputText id="year" value="#{movies.movieToCreate.year}" required="true" /> <br/>
-        <label for="eidr">EIDR</label> <br/>
-        <h:inputText id="eidr" value="#{movies.movieToCreate.eidr}" required="true" /> <br/>
-        <h:commandButton value="Add Movie" action="#{movies.createMovie()}" /> <br/>
-    </h:form>
-    <h:form>
-        <label for="ftheatreid">Theatre Id</label> <br/>
-        <h:inputText id="ftheatreid" binding="#{ftheatreid}" /> <br/>
-        <label for="fmovieeidr">Movie Eidr</label> <br/>
-        <h:inputText id="fmovieeidr" binding="#{fmovieeidr}" /> <br/>
-        <h:commandButton value="Add Theatre To Movie" action="#{movies.addTheatreToMovie(fmovieeidr.value, ftheatreid.value)}"/>
-    </h:form>
 </h:body>
 </html>
