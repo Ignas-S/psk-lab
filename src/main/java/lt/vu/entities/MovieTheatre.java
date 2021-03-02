@@ -38,6 +38,9 @@ public class MovieTheatre {
         this.movies.add(movie);
     }
 
+    @OneToMany(targetEntity = Auditorium.class, mappedBy = "theatreId")
+    private Set<Auditorium> auditoriums;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -46,8 +49,6 @@ public class MovieTheatre {
         MovieTheatre that = (MovieTheatre) o;
 
         if (!Objects.equals(id, that.id)) return false;
-        if (!Objects.equals(address, that.address)) return false;
-        if (!Objects.equals(name, that.name)) return false;
 
         return true;
     }
@@ -55,8 +56,6 @@ public class MovieTheatre {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
 }

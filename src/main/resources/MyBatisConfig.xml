@@ -4,8 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <typeAlias type="lt.vu.mybatis.model.Team" alias="Team"/>
-        <typeAlias type="lt.vu.mybatis.model.Player" alias="Player"/>
+        <typeAlias type="lt.vu.mybatis.model.Auditorium" alias="Auditorium"/>
+        <typeAlias type="lt.vu.mybatis.model.Movie" alias="Player"/>
+        <typeAlias type="lt.vu.mybatis.model.MovieTheatre" alias="MovieTheatre"/>
+        <typeAlias type="lt.vu.mybatis.model.TheatreMovies" alias="TheatreMovies"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">
@@ -16,7 +18,9 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="mybatis.xml/TeamMapper.xml"/>
-        <mapper resource="mybatis.xml/PlayerMapper.xml"/>
+        <mapper resource="mybatis.xml/AuditoriumMapper.xml"/>
+        <mapper resource="mybatis.xml/MovieMapper.xml"/>
+        <mapper resource="mybatis.xml/MovieTheatreMapper.xml"/>
+        <mapper resource="mybatis.xml/TheatreMoviesMapper.xml"/>
     </mappers>
 </configuration>

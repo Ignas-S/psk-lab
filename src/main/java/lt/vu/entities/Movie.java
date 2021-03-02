@@ -56,12 +56,7 @@ public class Movie {
 
         Movie that = (Movie) o;
 
-        if (year != that.year) return false;
-        if (duration != that.duration) return false;
         if (!Objects.equals(eidr, that.eidr)) return false;
-        if (!Objects.equals(director, that.director)) return false;
-        if (!Objects.equals(name, that.name)) return false;
-        if (!Objects.equals(genres, that.genres)) return false;
 
         return true;
     }

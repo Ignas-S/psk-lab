@@ -12,6 +12,14 @@
         <span>  </span>
         <h:link value="Movies" outcome="movies"/>
     </header>
+    <h2>Auditoriums:</h2>
+    <ol>
+        <ui:repeat value="#{theatre.theatre.auditoriums}" var="auditorium">
+            <li>
+                Auditorium No. #{auditorium.nr}, seats: #{auditorium.seats}
+            </li>
+        </ui:repeat>
+    </ol>
     <h2>Movies for #{theatre.theatre.name} theatre (id=#{theatre.theatreId})</h2>
     <ol>
         <ui:repeat value="#{theatre.theatre.movies}" var="movie">
