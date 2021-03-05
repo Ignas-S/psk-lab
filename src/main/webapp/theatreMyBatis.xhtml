@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head/>
+<h:body>
+    <header>
+        <h:link value="Index" outcome="index"/>
+        <span>  </span>
+        <h:link value="Movies" outcome="movies"/>
+    </header>
+    <h2>Auditoriums:</h2>
+    <ol>
+        <ui:repeat value="#{theatreMyBatis.theatre.auditoriums}" var="auditorium">
+            <li>
+                Auditorium No. #{auditorium.nr}, seats: #{auditorium.seats}
+            </li>
+        </ui:repeat>
+    </ol>
+    <h2>Movies for #{theatreMyBatis.theatre.name} theatre (id=#{theatre.theatreId})</h2>
+    <ol>
+        <ui:repeat value="#{theatreMyBatis.theatre.movies}" var="movie">
+            <li>
+                #{movie.name}, #{movie.year}
+            </li>
+        </ui:repeat>
+    </ol>
+</h:body>
+</html>

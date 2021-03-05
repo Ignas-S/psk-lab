@@ -2,6 +2,7 @@ package lt.vu.mybatis.dao;
 
 import java.util.List;
 import lt.vu.mybatis.model.MovieTheatre;
+import org.apache.ibatis.annotations.Param;
 import org.mybatis.cdi.Mapper;
 
 @Mapper
@@ -45,4 +46,6 @@ public interface MovieTheatreMapper {
      * @mbg.generated Mon Mar 01 21:24:53 EET 2021
      */
     int updateByPrimaryKey(MovieTheatre record);
+
+    void addMovieToTheatre(@Param("eidr") String eidr, @Param("id") String id);
 }

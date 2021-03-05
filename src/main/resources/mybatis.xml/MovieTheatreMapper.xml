@@ -10,14 +10,9 @@
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <collection property="movies" ofType="lt.vu.mybatis.model.Movie">
-      <id property="id" column=""/>
-      <result property="eidr" column="eidr"/>
-      <result property="director" column="director"/>
-      <result property="name" column="name"/>
-      <result property="year" column="year"/>
-      <result property="genres" column="genres"/>
-      <result property="duration" column="duration"/>
+    <collection property="movies" ofType="lt.vu.mybatis.model.Movie" javaType="ArrayList" column="id" select="selectMoviesForTheatre">
+    </collection>
+    <collection property="auditoriums" ofType="lt.vu.mybatis.model.Auditorium" javaType="ArrayList" column="id" select="selectAuditoriumsForTheatre">
     </collection>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
@@ -68,7 +63,24 @@
       This element was generated on Mon Mar 01 21:26:43 EET 2021.
     -->
     select id, address, name
-    from public.movie_theatre
+    from movie_theatre
   </select>
+
+  <select id="selectMoviesForTheatre" resultType="lt.vu.mybatis.model.Movie">
+    SELECT m.eidr, m.director, m.duration, m.genres, m.year, m.name
+    FROM movie m
+           JOIN theatre_movies tm on m.eidr = tm.movie_eidr
+    WHERE tm.theatre_id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectAuditoriumsForTheatre" resultType="lt.vu.mybatis.model.Auditorium">
+    SELECT a.theatre_id as "theatreId", nr, seats
+    FROM auditorium a
+    WHERE a.theatre_id = #{id,jdbcType=VARCHAR}
+  </select>
+  <insert id="addMovieToTheatre">
+    insert into theatre_movies (theatre_id, movie_eidr)
+    values (#{id,jdbcType=VARCHAR}, #{eidr,jdbcType=VARCHAR})
+  </insert>
 
 </mapper>
