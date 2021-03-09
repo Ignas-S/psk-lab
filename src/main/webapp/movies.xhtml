@@ -13,7 +13,7 @@
     <ol>
         <ui:repeat value="#{movies.allMovies}" var="m">
             <li>
-                <h:link value="#{m.name}, #{m.year}" />
+                #{m.name}, #{m.year}
             </li>
         </ui:repeat>
     </ol>
