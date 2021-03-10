@@ -10,6 +10,11 @@ import javax.persistence.*;
 @Table(name = "auditorium", schema = "public", catalog = "nvinefdm")
 public class Auditorium {
 
+    @Getter @Setter
+    @ManyToOne(targetEntity = MovieTheatre.class)
+    @JoinColumn(name = "theatre_id", insertable = false, updatable = false)
+    private MovieTheatre theatre;
+
     @Id
     @Column(name = "theatre_id")
     @Getter @Setter

@@ -28,6 +28,9 @@ public class Theatre implements Serializable {
     @Inject
     MovieTheatreDao theatreDao;
 
+    @Getter @Setter
+    String movieToAdd;
+
     @Getter
     private MovieTheatre theatre;
     @Getter

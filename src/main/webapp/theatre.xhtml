@@ -33,6 +33,7 @@
         <ui:repeat value="#{theatre.otherMovies}" var="movie">
             <li>
                 <span>#{movie.name}, #{movie.year}, #{movie.eidr}  </span>
+
             </li>
         </ui:repeat>
     </ol>
@@ -40,9 +41,13 @@
     <h:form>
         <label for="ftheatreid">Theatre Id</label> <br/>
         <h:inputText id="ftheatreid" binding="#{ftheatreid}" required="true"/> <br/>
-        <label for="fmovieeidr">Movie Eidr</label> <br/>
-        <h:inputText id="fmovieeidr" binding="#{fmovieeidr}" required="true"/> <br/>
-        <h:commandButton action="#{theatre.addMovieToTheatre(fmovieeidr.value, ftheatreid.value)}" value="Add"/>
+
+<!--        <label for="fmovieeidr">Movie Eidr</label> <br/>-->
+        <h:selectOneMenu  value="#{theatre.movieToAdd}">
+            <f:selectItems value="#{theatre.otherMovies}" var="movie" itemValue="#{movie.eidr}" itemLabel="#{movie.name}"/>
+        </h:selectOneMenu><br/>
+<!--        <h:inputText id="fmovieeidr" binding="#{fmovieeidr}" required="true"/> <br/>-->
+        <h:commandButton action="#{theatre.addMovieToTheatre(theatre.movieToAdd, ftheatreid.value)}" value="Add"/>
     </h:form>
 </h:body>
 </html>

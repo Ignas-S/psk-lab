@@ -38,7 +38,7 @@ public class MovieTheatre {
         this.movies.add(movie);
     }
 
-    @OneToMany(targetEntity = Auditorium.class, mappedBy = "theatreId")
+    @OneToMany(targetEntity = Auditorium.class, mappedBy = "theatre")
     private Set<Auditorium> auditoriums;
 
     @Override
