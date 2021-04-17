@@ -27,6 +27,11 @@ public class MovieTheatre {
     @Column(name = "name")
     private String name;
 
+    @Basic
+    @Column(name = "v")
+    @Version
+    private int v;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "theatre_movies",
@@ -48,9 +53,7 @@ public class MovieTheatre {
 
         MovieTheatre that = (MovieTheatre) o;
 
-        if (!Objects.equals(id, that.id)) return false;
-
-        return true;
+        return Objects.equals(id, that.id);
     }
 
     @Override

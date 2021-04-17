@@ -9,4 +9,10 @@
     <interceptors>
         <class>lt.vu.interceptors.MethodLogger</class>
     </interceptors>
+    <alternatives>
+        <class>lt.vu.services.TheatreLocatorFormatted</class>
+    </alternatives>
+    <decorators>
+        <class>lt.vu.services.MovieGenreDecorator</class>
+    </decorators>
 </beans>

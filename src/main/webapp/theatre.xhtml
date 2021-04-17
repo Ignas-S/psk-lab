@@ -11,6 +11,9 @@
         <h:link value="Index" outcome="index"/>
         <span>  </span>
         <h:link value="Movies" outcome="movies"/>
+        <f:metadata>
+            <f:viewParam name="tId" value="#{locator.theatreId}" />
+        </f:metadata>
     </header>
     <h2>Auditoriums:</h2>
     <ol>
@@ -37,17 +40,10 @@
             </li>
         </ui:repeat>
     </ol>
-    <h2>Add movie to theatre</h2>
     <h:form>
-        <label for="ftheatreid">Theatre Id</label> <br/>
-        <h:inputText id="ftheatreid" binding="#{ftheatreid}" required="true"/> <br/>
-
-<!--        <label for="fmovieeidr">Movie Eidr</label> <br/>-->
-        <h:selectOneMenu  value="#{theatre.movieToAdd}">
-            <f:selectItems value="#{theatre.otherMovies}" var="movie" itemValue="#{movie.eidr}" itemLabel="#{movie.name}"/>
-        </h:selectOneMenu><br/>
-<!--        <h:inputText id="fmovieeidr" binding="#{fmovieeidr}" required="true"/> <br/>-->
-        <h:commandButton action="#{theatre.addMovieToTheatre(theatre.movieToAdd, ftheatreid.value)}" value="Add"/>
+        <h:outputText value="#{locator.addressLocatorStatus}" /> <br/>
+        <h:commandButton value="Locate theatre" disabled="#{locator.addressLocatorRunning}" action="#{locator.locateTheatre()}">
+        </h:commandButton>
     </h:form>
 </h:body>
 </html>

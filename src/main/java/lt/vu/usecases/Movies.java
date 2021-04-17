@@ -6,6 +6,7 @@ import lt.vu.entities.Movie;
 import lt.vu.entities.MovieTheatre;
 import lt.vu.persistence.MovieDao;
 import lt.vu.persistence.MovieTheatreDao;
+import lt.vu.services.IMovieService;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -23,6 +24,9 @@ import java.util.stream.Collectors;
 public class Movies implements Serializable {
     @Inject
     MovieDao movieDao;
+
+    @Inject
+    IMovieService movieService;
 
     @Getter
     private List<Movie> allMovies;
@@ -43,10 +47,9 @@ public class Movies implements Serializable {
     @Transactional
     public void createMovie() {
         if (movieToCreate.getEidr() != null) {
-            this.movieDao.persist(movieToCreate);
+            this.movieService.save(movieToCreate);
             this.movieToCreate = new Movie();
             this.loadMovies();
         }
-        return;
     }
 }
