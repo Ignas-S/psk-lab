@@ -8,11 +8,12 @@ import javax.enterprise.inject.Alternative;
 @ApplicationScoped
 @Alternative
 public class TheatreLocatorFormatted implements ILocator {
+
+    // Simple async service
     public String locateTheatre(MovieTheatre mt) {
         try {
             Thread.sleep(3000);
-        } catch (InterruptedException e) {
-        }
+        } catch (InterruptedException e) {}
         return "[Address] " + mt.getAddress();
     }
 }

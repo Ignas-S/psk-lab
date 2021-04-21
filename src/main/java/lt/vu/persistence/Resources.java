@@ -2,18 +2,21 @@ package lt.vu.persistence;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.SynchronizationType;
+import javax.transaction.TransactionScoped;
 
 @ApplicationScoped
 public class Resources {
 
-    @PersistenceUnit(unitName = "MoviesPU") // TODO: Set this to MoviesPU when ready // PlayersPU
+    @PersistenceUnit(unitName = "MoviesPU")
     private EntityManagerFactory emf;
 
     @Produces
@@ -21,6 +24,14 @@ public class Resources {
     @RequestScoped
     private EntityManager createJTAEntityManager() {
         return emf.createEntityManager(SynchronizationType.SYNCHRONIZED);
+    }
+
+    @Produces
+    @TransactionScoped
+    @Async
+    private EntityManager createJTATransactionalEM() {
+        return emf.createEntityManager(
+                SynchronizationType.SYNCHRONIZED);
     }
 
     private void closeDefaultEntityManager(@Disposes @Default EntityManager em) {

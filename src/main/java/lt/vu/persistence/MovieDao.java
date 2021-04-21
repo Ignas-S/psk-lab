@@ -4,6 +4,7 @@ import lt.vu.entities.Movie;
 import lt.vu.entities.MovieTheatre;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -14,7 +15,7 @@ import java.util.List;
 @ApplicationScoped
 public class MovieDao {
 
-    @Inject
+    @Inject @Default
     private EntityManager em;
 
     public void persist(Movie movie) {
@@ -25,8 +26,8 @@ public class MovieDao {
         return em.find(Movie.class, eidr);
     }
 
-    public Movie update(Movie player){
-        return em.merge(player);
+    public Movie update(Movie movie){
+        return em.merge(movie);
     }
 
     public List<Movie> loadAll() {

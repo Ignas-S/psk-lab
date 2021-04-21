@@ -1,71 +1,64 @@
 package lt.vu.usecases;
 
-import lombok.Getter;
 import lt.vu.entities.MovieTheatre;
-import lt.vu.persistence.MovieDao;
+import lt.vu.interceptors.LoggedInvocation;
 import lt.vu.persistence.MovieTheatreDao;
+import lt.vu.services.AsyncTheatreUpdater;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.persistence.OptimisticLockException;
-import javax.transaction.Transactional;
+import javax.inject.Named;
 import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
-@Model
 @SessionScoped
+@Named
 public class OptimisticLockTesting implements Serializable {
 
-    private String theatreId = "theatre2";
+    private String theatreId = "theatre2"; // Hardcoded since this is only for testing / demo
+
+    @Inject
+    private AsyncTheatreUpdater updater;
+
+    private CompletableFuture update1Future = null;
+    private CompletableFuture update2Future = null;
 
     @Inject
     MovieTheatreDao theatreDao;
 
-    public void test() {
-        MovieTheatre t1 = this.theatreDao.getById(this.theatreId);
-        MovieTheatre t2 = this.theatreDao.getById(this.theatreId);
-        t1.setName("t1");
-        t2.setName("t2");
-        update(t1);
-        update(t2);
+    @LoggedInvocation
+    public String test() {
+        MovieTheatre mt = theatreDao.getById(this.theatreId);
+        // Wait 1000 ms then update
+        update1Future = CompletableFuture.supplyAsync(() -> updater.update(theatreId,"rename1", 1000));
+        // Wait 100 ms then update, first update arrives and throws Optimistic Lock exception
+        update2Future = CompletableFuture.supplyAsync(() -> updater.update(theatreId,"rename2", 100));
+        return "/optlocktest.xhtml?faces-redirect=true";
     }
 
-    @Transactional
-    public void update(MovieTheatre mt) {
-        try {
-            this.theatreDao.persist(mt);
-        } catch (OptimisticLockException e) {
-            System.out.println("Optimistic lock in update2 triggered");
-            update(mt);
+    public boolean isUpdate1Running() {
+        return this.update1Future != null && !this.update1Future.isDone();
+    }
+    public boolean isUpdate2Running() {
+        return this.update2Future != null && !this.update2Future.isDone();
+    }
+
+    public String getUpdate1Status() throws ExecutionException, InterruptedException {
+        if (update1Future == null) {
+            return null;
+        } else if (isUpdate1Running()) {
+            return "Update 1 in progress...";
         }
+        return "Update1 Status: " + update1Future.get();
     }
-
-    @Transactional
-    public void update1() {
-        try {
-            MovieTheatre theatre = this.theatreDao.getById(this.theatreId);
-            theatre.setName("update1");
-            this.theatreDao.persist(theatre);
-        } catch (OptimisticLockException e) {
-            System.out.println("Optimistic lock in update2 triggered");
-            update1();
+    public String getUpdate2Status() throws ExecutionException, InterruptedException {
+        if (update1Future == null) {
+            return null;
+        } else if (isUpdate2Running()) {
+            return "Update 2 in progress...";
         }
+        return "Update2 Status: " + update2Future.get();
     }
-
-    @Transactional
-    public void update2() {
-        try {
-            MovieTheatre theatre = this.theatreDao.getById(this.theatreId);
-            theatre.setName("update2");
-            this.theatreDao.persist(theatre);
-        } catch (OptimisticLockException e) {
-            System.out.println("Optimistic lock in update2 triggered");
-            update2();
-        }
-    }
-
 }

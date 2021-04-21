@@ -3,6 +3,7 @@ import lt.vu.entities.Movie;
 import lt.vu.entities.MovieTheatre;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
@@ -12,7 +13,7 @@ import java.util.List;
 @ApplicationScoped
 public class MovieTheatreDao {
 
-    @Inject
+    @Inject @Default
     private EntityManager em;
 
     public void persist(MovieTheatre theatre) {

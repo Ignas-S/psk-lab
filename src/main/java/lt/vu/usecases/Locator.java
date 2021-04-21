@@ -7,6 +7,7 @@ import lt.vu.interceptors.LoggedInvocation;
 import lt.vu.persistence.MovieTheatreDao;
 import lt.vu.services.ILocator;
 
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -31,13 +32,12 @@ public class Locator implements Serializable {
 
     @LoggedInvocation
     public String locateTheatre() {
-        System.out.println(this.theatreId);
         MovieTheatre mt = theatreDao.getById(this.theatreId);
         locatorTask = CompletableFuture.supplyAsync(() -> locator.locateTheatre(mt));
         return "/theatre.xhtml?faces-redirect=true&tId=" + this.theatreId;
     }
 
-   public boolean isAddressLocatorRunning() {
+    public boolean isAddressLocatorRunning() {
         return this.locatorTask != null && !this.locatorTask.isDone();
    }
 

@@ -12,6 +12,8 @@
     <h2>Optimistic lock testing</h2>
     <h:form>
         <h:commandButton value="test" action="#{optimisticLockTesting.test()}" /> <br/>
+        <h:outputText value="#{optimisticLockTesting.update1Status}" /> <br/>
+        <h:outputText value="#{optimisticLockTesting.update2Status}" /> <br/>
     </h:form>
 </h:body>
 </html>

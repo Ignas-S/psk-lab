@@ -65,4 +65,14 @@ public class Movie {
     public int hashCode() {
         return Objects.hash(eidr);
     }
+
+    public Movie(String eidr, String director, String name, int year, String genres, int duration) {
+        this.eidr = eidr;
+        this.director = director;
+        this.name = name;
+        this.year = year;
+        this.genres = genres;
+        this.duration = duration;
+    }
+    public Movie() {}
 }

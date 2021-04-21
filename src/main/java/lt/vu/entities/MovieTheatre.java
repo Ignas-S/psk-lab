@@ -27,10 +27,9 @@ public class MovieTheatre {
     @Column(name = "name")
     private String name;
 
-    @Basic
     @Column(name = "v")
     @Version
-    private int v;
+    private Long v;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(
