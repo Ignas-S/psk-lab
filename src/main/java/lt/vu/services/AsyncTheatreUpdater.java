@@ -21,8 +21,9 @@ public class AsyncTheatreUpdater {
 
     // Simulating big system load - changes to db delayed
     @Transactional(Transactional.TxType.REQUIRES_NEW)
-    public String update(String id, String name, long waitMillis) {
+    public String update(String id, String name, long waitMillis, long prewaitMilis) {
         try {
+            Thread.sleep(prewaitMilis);
             var theatre = em.find(MovieTheatre.class, id, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
             System.out.println("updating with " + name + ", v: " + theatre.getV());
             Thread.sleep(waitMillis);

@@ -32,9 +32,9 @@ public class OptimisticLockTesting implements Serializable {
     public String test() {
         MovieTheatre mt = theatreDao.getById(this.theatreId);
         // Wait 1000 ms then update
-        update1Future = CompletableFuture.supplyAsync(() -> updater.update(theatreId,"rename1", 1000));
+        update1Future = CompletableFuture.supplyAsync(() -> updater.update(theatreId,"rename1", 1000, 0));
         // Wait 100 ms then update, first update arrives and throws Optimistic Lock exception
-        update2Future = CompletableFuture.supplyAsync(() -> updater.update(theatreId,"rename2", 100));
+        update2Future = CompletableFuture.supplyAsync(() -> updater.update(theatreId,"rename2", 100, 200));
         return "/optlocktest.xhtml?faces-redirect=true";
     }
 
