@@ -26,9 +26,9 @@
 
     <Resource id="MoviesDataSource" type="DataSource">
         JdbcDriver = org.postgresql.Driver
-        JdbcUrl = jdbc:postgresql://hattie.db.elephantsql.com:5432/nvinefdm
-        UserName = nvinefdm
-        Password = m0L4BXmyiz_wQy1ldGbm9OxFc_wi-FHY
+        JdbcUrl = connstring
+        UserName = user
+        Password = pasw
         InitialSize = 1
         MaxActive = 10
         MaxWaitTime = 10 seconds
