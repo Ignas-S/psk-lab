@@ -1,10 +1,10 @@
 <datasources>
     <datasource jndi-name="MoviesDataSource" pool-name="MoviesDataSource">
         <driver>postgresql</driver>
-        <connection-url>jdbc:postgresql://hattie.db.elephantsql.com:5432/nvinefdm</connection-url>
+        <connection-url>connstring</connection-url>
         <security>
-            <user-name>nvinefdm</user-name>
-            <password>m0L4BXmyiz_wQy1ldGbm9OxFc_wi-FHY</password>
+            <user-name>username</user-name>
+            <password>password</password>
         </security>
     </datasource>
 </datasources>

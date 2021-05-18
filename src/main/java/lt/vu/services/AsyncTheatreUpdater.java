@@ -34,8 +34,8 @@ public class AsyncTheatreUpdater {
         catch (OptimisticLockException e) {
             System.out.println("OPTIMISTIC LOCK EXCEPTION IN AsyncTheatreUpdater"); //
             System.out.println(e);
-            return "Optimistic Lock exception";
-            // update(id, name, waitMillis);
+            // return "Optimistic Lock exception";
+            // update(id, name, waitMillis, prewaitMilis);
         }
         catch (InterruptedException e) {}
         return "Update finished";
